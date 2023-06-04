@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    #parentDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    #divForUserInput {
+        width: 45%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    button {
+        margin-top: 10px;
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style> -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f8f8f8;
+    }
+
+    #parentDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    #divForBudgetInput,
+    #divForExpenseInput {
+        width: 45%;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 18px;
+        margin-top: 20px;
+        color: #333;
+    }
+
+    input,
+    input,
+    button {
+        margin-top: 10px;
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    th,
+    td {
+        padding: 12px 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        color: #333;
+    }
+
+    td {
+        color: #555;
+    }
+</style>
+
+<body>
+    <div id="parentDiv">
+        <div id="divForBudgetInput">
+            <input id="inputTag" type="text" required placeholder="Please Enter your Budget">
+            <button id="budgetButton" onclick="addBudget()">Add Budget</button>
+            <h1 id="budgetH1">Remaining Budget:<span id="span"></span></h1>
+        </div>
+
+        <div id="divForExpenseInput">
+            <input id="expenseName" type="text" required placeholder="Enter your Expense name">
+            <input type="text" id="expenseAmount" placeholder="Enter expense amount">
+            <input type="date" id="expenseDate" placeholder="Enter  expense date">
+            <button id="expenseButton" onclick="addExpense()">Add Expense</button>
+            <table id="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Expense Amount</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        var userInput;
+        var expenseAmount;
+        var totalExpense = 0;
+        var span;
+        var h1 = document.getElementById("budgetH1");
+        var divForBudgetInput = document.getElementById("divForBudgetInput")
+        var divForExpenseInput = document.getElementById("divForExpenseInput");
+        var table = document.getElementById("table");
+
+        var td3;
+        function addBudget() {
+            userInput = parseInt(document.getElementById("inputTag").value);
+            if (isNaN(userInput)) {
+                alert("Please enter only numbers")
+            } else {
+                span = document.getElementById("span");
+                span.innerText = userInput;
+            }
+            document.getElementById("inputTag").value = "";
+        }
+
+        function addExpense() {
+            var expenseName = document.getElementById("expenseName").value;
+            expenseAmount = parseInt(document.getElementById("expenseAmount").value);
+            var date = document.getElementById("expenseDate").value;
+            if (isNaN(expenseAmount)) {
+                alert("Please enter numbers")
+
+            } else {
+                var tr = document.createElement("tr");
+                table.appendChild(tr);
+                var td1 = document.createElement("td");
+                td1.textContent = date;
+                var td2 = document.createElement("td");
+                td2.textContent = expenseName
+                td3 = document.createElement("td");
+                td3.textContent = expenseAmount;
+                var dltButton = document.createElement("button");
+                tr.setAttribute("data-amount", expenseAmount.toString());
+
+                dltButton.setAttribute("onclick", "deleteRow(this)")
+                dltButton.textContent = "Delete";
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(dltButton);
+            }
+
+            // arr.push(expenseName);
+            // arr.push(expenseAmount);
+            // arr.push(date)
+
+            userInput = userInput - expenseAmount;
+            span = document.getElementById("span");
+            span.innerText = userInput;
+            totalExpense = totalExpense + expenseAmount;
+        }
+
+
+        function deleteRow(d) {
+
+            // var elements = table.getElementsByTagName("td");
+            // var thirdTd = elements[2];   
+            // var tdValue = thirdTd.textContent;
+            // console.log(tdValue)
+            // tdValue = parseInt(thirdTd.textContent);
+            // console.log(typeof tdValue)
+            //var row = d.parentNode;
+            var tdValue = parseInt(d.parentNode.querySelector("td:nth-child(3)").textContent);
+
+            d.parentNode.remove();
+            userInput = userInput + tdValue;
+            span = document.getElementById("span");
+            span.innerText = userInput;
+
+        }
+    </script>
+</body>
+
+</html>
