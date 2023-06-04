@@ -12,7 +12,7 @@
     <div id="parentDiv">
         <div id="divForBudgetInput">
             <input id="inputTag" type="text" required placeholder="Please Enter your Budget">
-            <button id="budgetButton" onclick="addBudget()">Add Budget</button>
+            <button id="budgetButton" onclick="BudgetApp.addBudget()">Add Budget</button>
             <h1 id="budgetH1">Remaining Budget:<span id="span"></span></h1>
         </div>
 
@@ -20,7 +20,7 @@
             <input id="expenseName" type="text" required placeholder="Enter your Expense name">
             <input type="text" id="expenseAmount" placeholder="Enter expense amount">
             <input type="date" id="expenseDate" placeholder="Enter  expense date">
-            <button id="expenseButton" onclick="addExpense()">Add Expense</button>
+            <button id="expenseButton" onclick="BudgetApp.addExpense()">Add Expense</button>
             <table id="table">
                 <tr>
                     <th>Date</th>
